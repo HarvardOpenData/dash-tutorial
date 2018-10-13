@@ -9,6 +9,10 @@ pip install dash-core-components==0.33.0  # Supercharged components
 ## Running the app
 Run `python app.py` in your terminal.
 ## Bootcamp
-1. Import the data using pandas.
+1. Import the data using pandas. Feel free to use the [NumPy + Pandas bootcamp](https://github.com/HarvardOpenData/data-science-tutorial) as a guide.
+2. Display a table with the data.
+2. Create a bar graph showing the number of people who ranked each house first.
+2. Create an interactive bar chart with a dropdown menu that allows you to select a house and view the distribution of rankings for that house.
 2. Change the title of the page to something more appropriate.
 3. Link dash and plotly to their respective websites.
+3. Make something prettier by changing `assets/style.css`.

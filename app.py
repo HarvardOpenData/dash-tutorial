@@ -6,11 +6,14 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+# TODO: Import the data
+
 app.layout = html.Div(children=[
     html.H1(children='Dash Bootcamp'),
-    html.Div(children='''
+    html.H3(children='''
         Learn how to build web apps using dash and plotly
     '''),
+    # TODO: Create a table of the data
 ])
 
 if __name__ == '__main__':
