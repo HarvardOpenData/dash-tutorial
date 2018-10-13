@@ -8,18 +8,22 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-df = pd.read_csv("house_rankings_2018.csv")
-df.set_index("House", inplace=True)
+df = pd.read_csv('house_rankings_2018.csv')
+df.set_index('House', inplace=True)
+num_of_respondents = df.sum(axis=1)[0]
 
 ranked_first_bar_chart = go.Figure(
     data=[go.Bar(
         x=df.index,
-        y=df.iloc[:,0]
+        y=df.iloc[:,0] / num_of_respondents * 100
     )],
     layout=go.Layout(
-        title='Houses Ranked 1st in 2018'
+        title='Houses Ranked 1st in 2018',
+        xaxis={'title': 'House'},
+        yaxis={'title': '% of Respondents'}
     )
 )
+
 
 app.layout = html.Div(children=[
     html.H1(children='Dash Bootcamp'),
@@ -28,11 +32,10 @@ app.layout = html.Div(children=[
     '''),
     html.Table(
         # Header
-        [html.Tr([html.Th(col) for col in df.columns])] +
-
+        [html.Tr([html.Th('House')] + [html.Th(col) for col in df.columns])] +
         # Body
-        [html.Tr([
-            html.Td(df.iloc[i][col]) for col in df.columns
+        [html.Tr([html.Td(df.index[i])] +
+            [html.Td(df.iloc[i][col]) for col in df.columns
         ]) for i in range(len(df))]
     ),
     dcc.Graph(
@@ -40,44 +43,31 @@ app.layout = html.Div(children=[
         figure=ranked_first_bar_chart
     ),
     dcc.Dropdown(
-    id='my-dropdown',
-    options=[
-        {'label': 'New York City', 'value': 'NYC'},
-        {'label': 'Montreal', 'value': 'MTL'},
-        {'label': 'San Francisco', 'value': 'SF'}
-    ],
-    value='NYC'
-    ),
-    html.Div(id='output-container'),
-
-    dcc.Dropdown(
         id='house-dropdown',
         options=[{'label': house, 'value': house} for house in df.index],
-        multi=True
+        # multi=True
     ),
     html.Div(
         id='house-rankings'
     )
 ])
-@app.callback(
-    dash.dependencies.Output('output-container', 'children'),
-    [dash.dependencies.Input('my-dropdown', 'value')])
-def update_output(value):
-    return 'You have selected "{}"'.format(value)
+
 @app.callback(
     dash.dependencies.Output('house-rankings', 'children'),
     [dash.dependencies.Input('house-dropdown', 'value')])
 def house_rankings(house):
-    return go.Figure(
-        # data=[go.Bar(
-        #     x=df.columns,
-        #     y=df.iloc[house,:]
-        # )]
+    return dcc.Graph(id='house-ranking-graph', figure=go.Figure(
         data=[go.Bar(
-            x=df.index,
-            y=df.iloc[:,0]
-        )]
-    )
+            x=df.columns,
+            y=df.loc[house,:] / num_of_respondents * 100
+        )],
+        layout=go.Layout(
+            title='{} Rankings'.format(house),
+            xaxis={'title': 'Rank'},
+            yaxis={'title': '% of Respondents'}
+        )
+    ))
+    # return "it works" + house
 
 if __name__ == '__main__':
     app.run_server(debug=True)
