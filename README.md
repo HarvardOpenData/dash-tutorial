@@ -17,3 +17,4 @@ Run `python app.py` in your terminal.
 2. Change the title of the page to something more appropriate.
 3. Link dash and plotly to their respective websites.
 3. Make something prettier by changing `assets/style.css`.
+3. Challenge: Enable multiple selection on the dropdown and show multiple house ranking distributions on the same graph.
