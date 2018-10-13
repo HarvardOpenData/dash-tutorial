@@ -27,7 +27,7 @@ ranked_first_bar_chart = go.Figure(
 
 app.layout = html.Div(children=[
     html.H1(children='Dash Bootcamp'),
-    html.Div(children='''
+    html.H3(children='''
         Learn how to build web apps using dash and plotly
     '''),
     html.Table(
