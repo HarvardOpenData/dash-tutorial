@@ -24,7 +24,6 @@ ranked_first_bar_chart = go.Figure(
     )
 )
 
-
 app.layout = html.Div(children=[
     html.H1(children='Dash Bootcamp'),
     html.H3(children='''
@@ -67,7 +66,6 @@ def house_rankings(house):
             yaxis={'title': '% of Respondents'}
         )
     ))
-    # return "it works" + house
 
 if __name__ == '__main__':
     app.run_server(debug=True)
