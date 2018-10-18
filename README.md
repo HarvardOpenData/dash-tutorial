@@ -10,6 +10,7 @@ pip install plotly==3.3.0
 ## Running the app
 Run `python app.py` in your terminal.
 ## Bootcamp
+
 1. Import the data using pandas. Feel free to use the [NumPy + Pandas bootcamp](https://github.com/HarvardOpenData/data-science-tutorial) as a guide.
 2. Display a table with the data. The [Dash user guide](https://dash.plot.ly/getting-started) has an example of how to create a table from a Pandas DataFrame.
 2. Create a bar graph showing the number of people who ranked each house first. [Plotly documentation](https://plot.ly/python/bar-charts/) may be helpful.
